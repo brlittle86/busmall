@@ -5,6 +5,7 @@ var selectionNumbers = [];
 var num1 = 0;
 var num2 = 0;
 var num3 = 0;
+var selectorElement = document.getElementById('selection-field');
 
 //Image constructor function
 function Image(imageName, imageFilePath) {
@@ -48,16 +49,27 @@ var imageSelector = function() {
   //chooses a random number, so long as that number was not in the selectionNumbers array and sets it to a given position in the array
   do {
     num1 = Math.floor(Math.random() * (imagesArray.length + 1));
-  } while (selectionNumbers.includes(num1));
-  selectionNumbers[0] = num1;
+  } while (selectionNumbers.includes(num1) || num1 === num2 || num1 === num3);
 
   do {
     num2 = Math.floor(Math.random() * (imagesArray.length + 1));
-  } while (selectionNumbers.includes(num2));
-  selectionNumbers[1] = num2;
+  } while (selectionNumbers.includes(num2) || num2 === num1 || num2 === num3);
 
   do {
     num3 = Math.floor(Math.random() * (imagesArray.length + 1));
-  } while (selectionNumbers.includes(num3));
+  } while (selectionNumbers.includes(num3) || num3 === num1 || num3 === num2);
+
+  selectionNumbers[0] = num1;
+  selectionNumbers[1] = num2;
   selectionNumbers[2] = num3;
+
+  //log array to confirm non-repeating numbers are generated each time function is run
+  console.log(selectionNumbers);
+};
+
+//function to display images to html based on the numbers stored in selectionNumbers
+var renderImages = function() {
+  for (var i = 0; i < selectionNumbers.length; i++) {
+    ;
+  }
 };
