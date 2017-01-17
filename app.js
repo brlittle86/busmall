@@ -1,6 +1,10 @@
 'use strict';
 
 //global variables
+var selectionNumbers = [];
+var num1 = 0;
+var num2 = 0;
+var num3 = 0;
 
 //Image constructor function
 function Image(imageName, imageFilePath) {
@@ -8,7 +12,9 @@ function Image(imageName, imageFilePath) {
   this.imageFilePath = imageFilePath;
 
   var timesClicked;
+  this.timesClicked = 0;
   var timeShown;
+  this.timeShown = 0;
   var htmlId = 'randomImage';
   this.htmlId = htmlId;
 }
@@ -36,3 +42,22 @@ var waterCan = new Image('water-can', '/img/water-can.jpg');
 var wineGlass = new Image('wine-glass', '/img/wine-glass.jpg');
 
 var imagesArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass];
+
+//Selector function
+var imageSelector = function() {
+  //chooses a random number, so long as that number was not in the selectionNumbers array and sets it to a given position in the array
+  do {
+    num1 = Math.floor(Math.random() * (imagesArray.length + 1));
+  } while (selectionNumbers.includes(num1));
+  selectionNumbers[0] = num1;
+
+  do {
+    num2 = Math.floor(Math.random() * (imagesArray.length + 1));
+  } while (selectionNumbers.includes(num2));
+  selectionNumbers[1] = num2;
+
+  do {
+    num3 = Math.floor(Math.random() * (imagesArray.length + 1));
+  } while (selectionNumbers.includes(num3));
+  selectionNumbers[2] = num3;
+};
