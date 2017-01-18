@@ -88,10 +88,8 @@ var renderImages = function() {
   selectorElement.appendChild(sectionElement);
 
   for (var i = 0; i < selectionNumbers.length; i++) {
-    var imageElement = document.createElement('input');
-    imageElement.setAttribute('type', 'image');
-    imageElement.setAttribute('class', 'option' + i);
-    imageElement.setAttribute('id', imagesArray[selectionNumbers[i]].imageName);
+    var imageElement = document.createElement('img');
+    imageElement.setAttribute('id', 'randomImage');
     imageElement.setAttribute('src', imagesArray[selectionNumbers[i]].imageFilePath);
     sectionElement.appendChild(imageElement);
     imagesArray[selectionNumbers[i]].timeShown++;
@@ -101,18 +99,21 @@ var renderImages = function() {
 
 renderImages();
 
+//listener for when an image is selected
+var choice = document.getElementById('selection-field');
+
 //function for listener
-var storedSelection = function(option) {
+choice.onclick = function() {
 
   if (cycleCounter < 25) {
     for (var i = 0; i < imagesArray.length; i++) {
       // console.log(this.id.value);
-      if (imagesArray[i].imageName === option) {
+      if (imagesArray[i].imageName === this.imageName) {
         imagesArray[i].timesClicked++;
         console.log('This was clicked ' + imagesArray[i].timesClicked);
-      } else {
-        console.log('Failed to find the id.');
-      }
+       } //else {
+      //   console.log('Failed to find the id.');
+      // }
     }
     renderImages();
     cycleCounter++;
@@ -125,12 +126,56 @@ var storedSelection = function(option) {
   }
 };
 
-//listener for when an image is selected
-var optionZero = document.getElementsByClassName('option0');
-optionZero.addEventListener('click', storedSelection(imagesArray[selectionNumbers[0]].imageName));
+// var optionZero = document.getElementsByClassName('option0');
+// optionZero.addEventListener('click', storedSelection(imagesArray[selectionNumbers[0]].imageName));
 
-var optionOne = document.getElementsByClassName('option1');
-optionOne.addEventListener('click', storedSelection(imagesArray[selectionNumbers[1]].imageName));
+// var optionOne = document.getElementsByClassName('option1');
+// optionOne.addEventListener('click', storedSelection(imagesArray[selectionNumbers[1]].imageName));
 
-var optionTwo = document.getElementsByClassName('option2');
-optionTwo.addEventListener('click', storedSelection(imagesArray[selectionNumbers[2]].imageName));
+// var optionTwo = document.getElementsByClassName('option2');
+// optionTwo.addEventListener('click', storedSelection(imagesArray[selectionNumbers[2]].imageName));
+
+//variables and options for building the results chart on the page
+var buildChart = function() {
+  var renderChart = document.getElementById('results-chart');
+
+  //build the chart data
+  var chartData = [];
+  for (var index = 0; index < imagesArray.length; index++) {
+    var clickedData = imagesArray[index].timesClicked;
+    chartData.push(clickedData);
+  }
+
+  //build list of names for labels
+  var chartLabels = [];
+  for (var index = 0; index < imagesArray.length; index++) {
+    var labelsData = imagesArray[index].imageName;
+    chartLabels.push(labelsData);
+  }
+
+  var chartColors = ['red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple'];
+
+  var chartOptions = {
+        responsive: false,
+        scales: {
+        yAxes: [{
+          ticks: {
+            beginAtZero: true
+          }
+        }]
+      }
+  };
+
+  var imageResultsChart = new Chart(context, {
+    type: 'bar',
+    data: {
+      labels: chartColors,
+      datasets: [{
+        label: '# of votes for each color',
+        data: chartData,
+        backgroundColor: chartColors
+      }]
+    },
+    options: chartOptions
+  })
+};
