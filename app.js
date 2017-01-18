@@ -113,5 +113,6 @@ choices.onclick = function() {
     imageRemover();
     var completionMessage = document.createElement('p');
     completionMessage.textContent = 'Thank you for your participation! You are done!';
+    selectorElement.appendChild(completionMessage);
   }
 };
