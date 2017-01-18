@@ -90,6 +90,7 @@ var renderImages = function() {
   for (var i = 0; i < selectionNumbers.length; i++) {
     var imageElement = document.createElement('input');
     imageElement.setAttribute('type', 'image');
+    imageElement.setAttribute('class', 'option' + i)
     imageElement.setAttribute('id', imagesArray[selectionNumbers[i]].imageName);
     imageElement.setAttribute('src', imagesArray[selectionNumbers[i]].imageFilePath);
     sectionElement.appendChild(imageElement);
@@ -100,10 +101,8 @@ var renderImages = function() {
 
 renderImages();
 
-//listener for when an image is selected
-var choices = document.getElementById('selection-field');
-
-choices.onclick = function() {
+//function for listener
+function userSelection(option) {
   if (cycleCounter < 25) {
     for (var i = 0; i < imagesArray.length; i++) {
       console.log(this.id.value);
@@ -124,3 +123,8 @@ choices.onclick = function() {
     selectorElement.appendChild(completionMessage);
   }
 };
+
+//listener for when an image is selected
+document.getElementsByClassName('option0').addEventListener('click', userSelection(this.id));
+document.getElementsByClassName('option1').addEventListener('click', userSelection(this.id));
+document.getElementsByClassName('option2').addEventListener('click', userSelection(this.id));
