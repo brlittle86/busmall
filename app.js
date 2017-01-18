@@ -102,7 +102,7 @@ var renderImages = function() {
 renderImages();
 
 //function for listener
-var storedSelection = function userSelection(option) {
+var storedSelection = function(option) {
 
   if (cycleCounter < 25) {
     for (var i = 0; i < imagesArray.length; i++) {
@@ -127,10 +127,10 @@ var storedSelection = function userSelection(option) {
 
 //listener for when an image is selected
 var optionZero = document.getElementsByClassName('option0');
-optionZero.addEventListener('click', userSelection(imagesArray[selectionNumbers[0]].imageName));
+optionZero.addEventListener('click', storedSelection(imagesArray[selectionNumbers[0]].imageName));
 
 var optionOne = document.getElementsByClassName('option1');
-optionOne.addEventListener('click', userSelection(imagesArray[selectionNumbers[1]].imageName));
+optionOne.addEventListener('click', storedSelection(imagesArray[selectionNumbers[1]].imageName));
 
 var optionTwo = document.getElementsByClassName('option2');
-optionTwo.addEventListener('click', userSelection(imagesArray[selectionNumbers[2]].imageName));
+optionTwo.addEventListener('click', storedSelection(imagesArray[selectionNumbers[2]].imageName));
