@@ -90,7 +90,7 @@ var renderImages = function() {
   for (var i = 0; i < selectionNumbers.length; i++) {
     var imageElement = document.createElement('input');
     imageElement.setAttribute('type', 'image');
-    imageElement.setAttribute('class', 'option' + i)
+    imageElement.setAttribute('class', 'option' + i);
     imageElement.setAttribute('id', imagesArray[selectionNumbers[i]].imageName);
     imageElement.setAttribute('src', imagesArray[selectionNumbers[i]].imageFilePath);
     sectionElement.appendChild(imageElement);
