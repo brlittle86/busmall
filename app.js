@@ -100,20 +100,18 @@ var renderImages = function() {
 renderImages();
 
 //listener for when an image is selected
-var choice = document.getElementById('selection-field');
+var choice = document.getElementById('images-block');
 
 //function for listener
-choice.onclick = function() {
-
+// choice.onclick = function() {
+var clicker = function() {
   if (cycleCounter < 25) {
     for (var i = 0; i < imagesArray.length; i++) {
-      // console.log(this.id.value);
+      console.log(this.imageName);
       if (imagesArray[i].imageName === this.imageName) {
         imagesArray[i].timesClicked++;
         console.log('This was clicked ' + imagesArray[i].timesClicked);
-       } //else {
-      //   console.log('Failed to find the id.');
-      // }
+       } 
     }
     renderImages();
     cycleCounter++;
@@ -126,14 +124,7 @@ choice.onclick = function() {
   }
 };
 
-// var optionZero = document.getElementsByClassName('option0');
-// optionZero.addEventListener('click', storedSelection(imagesArray[selectionNumbers[0]].imageName));
-
-// var optionOne = document.getElementsByClassName('option1');
-// optionOne.addEventListener('click', storedSelection(imagesArray[selectionNumbers[1]].imageName));
-
-// var optionTwo = document.getElementsByClassName('option2');
-// optionTwo.addEventListener('click', storedSelection(imagesArray[selectionNumbers[2]].imageName));
+choice.addEventListener('click', clicker);
 
 //variables and options for building the results chart on the page
 var buildChart = function() {
