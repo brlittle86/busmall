@@ -1,6 +1,7 @@
 'use strict';
 
 //global variables
+var cycleCounter = 0;
 var selectionNumbers = [];
 var num1 = 0;
 var num2 = 0;
@@ -26,7 +27,7 @@ var banana = new Image('banana', 'img/banana.jpg');
 var bathroom = new Image('bathroom', 'img/bathroom.jpg');
 var boots = new Image('boots', 'img/boots.jpg');
 var breakfast = new Image('breakfast', 'img/breakfast.jpg');
-var bubblegum = new Image('bubblegum', 'img/bubbglegum.jpg');
+var bubblegum = new Image('bubblegum', 'img/bubblegum.jpg');
 var chair = new Image('chair', 'img/chair.jpg');
 var cthulhu = new Image('cthulhu', 'img/cthulhu.jpg');
 var dogDuck = new Image('dog-duck', 'img/dog-duck.jpg');
@@ -80,6 +81,7 @@ var imageRemover = function() {
 var renderImages = function() {
   //clears any existing images from the page
   imageRemover();
+  imageSelector();
 
   var sectionElement = document.createElement('section');
   sectionElement.setAttribute('id', 'images-block');
@@ -93,5 +95,23 @@ var renderImages = function() {
     sectionElement.appendChild(imageElement);
     imagesArray[selectionNumbers[i]].timeShown++;
     console.log(imagesArray[selectionNumbers[i]].timeShown);
+  }
+};
+
+renderImages();
+
+//listener for when an image is selected
+var choices = document.getElementById('images-block');
+
+choices.onclick = function() {
+  if (cycleCounter < 25) {
+    this.timesClicked++;
+    renderImages();
+    cycleCounter++;
+    console.log(this.timesClicked);
+  } else {
+    imageRemover();
+    var completionMessage = document.createElement('p');
+    completionMessage.textContent = 'Thank you for your participation! You are done!';
   }
 };
