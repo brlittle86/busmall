@@ -13,10 +13,10 @@ function Image(imageName, imageFilePath) {
   this.imageName = imageName;
   this.imageFilePath = imageFilePath;
 
-  var timesClicked;
-  this.timesClicked = 0;
-  var timeShown;
-  this.timeShown = 0;
+  var timesClicked = 0;
+  this.timesClicked = timesClicked;
+  var timeShown = 0;
+  this.timeShown = timeShown;
   var htmlId = 'randomImage';
   this.htmlId = htmlId;
 }
@@ -30,18 +30,18 @@ var breakfast = new Image('breakfast', 'img/breakfast.jpg');
 var bubblegum = new Image('bubblegum', 'img/bubblegum.jpg');
 var chair = new Image('chair', 'img/chair.jpg');
 var cthulhu = new Image('cthulhu', 'img/cthulhu.jpg');
-var dogDuck = new Image('dog-duck', 'img/dog-duck.jpg');
+var dogDuck = new Image('dogDuck', 'img/dog-duck.jpg');
 var dragon = new Image('dragon', 'img/dragon.jpg');
 var pen = new Image('pen', 'img/pen.jpg');
-var petSweep = new Image('pet-sweep', 'img/pet-sweep.jpg');
+var petSweep = new Image('petSweep', 'img/pet-sweep.jpg');
 var scissors = new Image('scissors', 'img/scissors.jpg');
 var shark = new Image('shark', 'img/shark.jpg');
 var sweep = new Image('sweep', 'img/sweep.png');
 var tauntaun = new Image('tauntaun', 'img/tauntaun.jpg');
 var unicorn = new Image('unicorn', 'img/unicorn.jpg');
 var usb = new Image('usb', 'img/usb.gif');
-var waterCan = new Image('water-can', 'img/water-can.jpg');
-var wineGlass = new Image('wine-glass', 'img/wine-glass.jpg');
+var waterCan = new Image('waterCan', 'img/water-can.jpg');
+var wineGlass = new Image('wineGlass', 'img/wine-glass.jpg');
 
 var imagesArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass];
 
@@ -90,7 +90,7 @@ var renderImages = function() {
   for (var i = 0; i < selectionNumbers.length; i++) {
     var imageElement = document.createElement('input');
     imageElement.setAttribute('type', 'image');
-    imageElement.setAttribute('id', 'randomImage');
+    imageElement.setAttribute('id', imagesArray[selectionNumbers[i]].imageName);
     imageElement.setAttribute('src', imagesArray[selectionNumbers[i]].imageFilePath);
     sectionElement.appendChild(imageElement);
     imagesArray[selectionNumbers[i]].timeShown++;
@@ -101,14 +101,22 @@ var renderImages = function() {
 renderImages();
 
 //listener for when an image is selected
-var choices = document.getElementById('images-block');
+var choices = document.getElementById('selection-field');
 
 choices.onclick = function() {
   if (cycleCounter < 25) {
-    this.timesClicked++;
+    for (var i = 0; i < imagesArray.length; i++) {
+      console.log(this.id.value);
+      if (imagesArray[i].imageName === this.id.value) {
+        imagesArray[i].timesClicked++;
+        console.log('This was clicked ' + imagesArray[i].timesClicked);
+      } else {
+        console.log('Failed to find the id.');
+      }
+    }
     renderImages();
     cycleCounter++;
-    console.log(this.timesClicked);
+    // console.log(parseInt(this.timesClicked));
   } else {
     imageRemover();
     var completionMessage = document.createElement('p');
