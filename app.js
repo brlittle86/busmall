@@ -49,15 +49,15 @@ var imageSelector = function() {
   //chooses a random number, so long as that number was not in the selectionNumbers array and sets it to a given position in the array
   do {
     num1 = Math.floor(Math.random() * (imagesArray.length + 1));
-  } while (selectionNumbers.includes(num1) || num1 === num2 || num1 === num3);
+  } while (selectionNumbers.includes(num1) || num1 === num2 || num1 === num3 || num1 === 20);
 
   do {
     num2 = Math.floor(Math.random() * (imagesArray.length + 1));
-  } while (selectionNumbers.includes(num2) || num2 === num1 || num2 === num3);
+  } while (selectionNumbers.includes(num2) || num2 === num1 || num2 === num3 || num2 === 20);
 
   do {
     num3 = Math.floor(Math.random() * (imagesArray.length + 1));
-  } while (selectionNumbers.includes(num3) || num3 === num1 || num3 === num2);
+  } while (selectionNumbers.includes(num3) || num3 === num1 || num3 === num2 || num3 === 20);
 
   selectionNumbers[0] = num1;
   selectionNumbers[1] = num2;
@@ -67,14 +67,30 @@ var imageSelector = function() {
   console.log(selectionNumbers);
 };
 
+//function to remove existing set of images, if any exist
+var imageRemover = function() {
+  var inputId = document.getElementById('images-block');
+
+  if (inputId !== null) {
+    inputId.remove();
+  }
+};
+
 //function to display images to html based on the numbers stored in selectionNumbers
 var renderImages = function() {
+  //clears any existing images from the page
+  imageRemover();
+
+  var sectionElement = document.createElement('section');
+  sectionElement.setAttribute('id', 'images-block');
+  selectorElement.appendChild(sectionElement);
+
   for (var i = 0; i < selectionNumbers.length; i++) {
     var imageElement = document.createElement('input');
     imageElement.setAttribute('type', 'image');
     imageElement.setAttribute('id', 'randomImage');
     imageElement.setAttribute('src', imagesArray[selectionNumbers[i]].imageFilePath);
-    selectorElement.appendChild(imageElement);
+    sectionElement.appendChild(imageElement);
     imagesArray[selectionNumbers[i]].timeShown++;
     console.log(imagesArray[selectionNumbers[i]].timeShown);
   }
