@@ -89,7 +89,7 @@ var renderImages = function() {
 
   for (var i = 0; i < selectionNumbers.length; i++) {
     var imageElement = document.createElement('img');
-    imageElement.setAttribute('id', 'randomImage');
+    imageElement.setAttribute('id', 'randomImage' + i);
     imageElement.setAttribute('src', imagesArray[selectionNumbers[i]].imageFilePath);
     sectionElement.appendChild(imageElement);
     imagesArray[selectionNumbers[i]].timeShown++;
@@ -100,7 +100,7 @@ var renderImages = function() {
 renderImages();
 
 //listener for when an image is selected
-var choice = document.getElementById('images-block');
+// var choice = document.getElementById('selection-field');
 
 //function for listener
 // choice.onclick = function() {
@@ -124,7 +124,14 @@ var clicker = function() {
   }
 };
 
-choice.addEventListener('click', clicker);
+var choice0 = document.getElementById('randomImage0')
+choice0.addEventListener('click', clicker);
+
+var choice1 = document.getElementById('randomImage1')
+choice1.addEventListener('click', clicker);
+
+var choice2 = document.getElementById('randomImage2')
+choice2.addEventListener('click', clicker);
 
 //variables and options for building the results chart on the page
 var buildChart = function() {
