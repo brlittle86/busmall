@@ -2,11 +2,14 @@
 
 //global variables
 var cycleCounter = 0;
-var selectionNumbers = [];
+var selectionNumbers = [,,];
 var num1 = 0;
 var num2 = 0;
 var num3 = 0;
 var selectorElement = document.getElementById('selection-field');
+var mainTag = document.getElementById('main-tag');
+var sectionElement = document.createElement('section');
+var imageElement = document.createElement('img');
 
 //Image constructor function
 function Image(imageName, imageFilePath) {
@@ -70,15 +73,19 @@ var imageSelector = function() {
 
 //function to remove existing set of images, if any exist
 var imageRemover = function() {
-  var inputIdZero = document.getElementById('randomImage0');
-  var inputIdOne = document.getElementById('randomImage1');
-  var inputIdTwo = document.getElementById('randomImage2');
+  var inputIdZero = document.getElementById('selection-field');
+  // var inputIdOne = document.getElementById('randomImage1');
+  // var inputIdTwo = document.getElementById('randomImage2');
 
   if (inputIdZero !== null || inputIdOne !== null || inputIdTwo !== null) {
     inputIdZero.remove();
-    inputIdOne.remove();
-    inputIdTwo.remove();
+    // inputIdOne.remove();
+    // inputIdTwo.remove();
   }
+  var inputDiv = document.createElement('div');
+  inputDiv.setAttribute('id', 'selection-field');
+  console.log(inputDiv);
+  mainTag.appendChild(inputDiv);
 };
 
 //function to display images to html based on the numbers stored in selectionNumbers
@@ -88,13 +95,16 @@ var renderImages = function() {
   imageSelector();
 
   for (var i = 0; i < selectionNumbers.length; i++) {
-    var sectionElement = document.createElement('section');
-    sectionElement.setAttribute('id', 'randomImage' + i);
-    selectorElement.appendChild(sectionElement);
-    var imageElement = document.createElement('img');
-    // imageElement.setAttribute('id', 'randomImage' + i);
+    console.log('This loop is happening.')
+
+    // sectionElement.setAttribute('id', 'randomImage' + i);
+    
+    console.log(sectionElement);
+    
+    imageElement.setAttribute('id', 'randomImage' + i);
     imageElement.setAttribute('src', imagesArray[selectionNumbers[i]].imageFilePath);
     sectionElement.appendChild(imageElement);
+    selectorElement.appendChild(sectionElement);
     imagesArray[selectionNumbers[i]].timeShown++;
     console.log(imagesArray[selectionNumbers[i]].timeShown);
   }
@@ -113,7 +123,7 @@ var clickerZero = function() {
       console.log(imagesArray[selectionNumbers[0]].imageName);
       if (imagesArray[i].imageName === imagesArray[selectionNumbers[0]].imageName) {
         imagesArray[i].timesClicked += 1;
-        console.log('This was clicked ' + imagesArray[i].timesClicked);
+        console.log('Times clicked = ' + imagesArray[i].timesClicked);
        } 
     }
 
@@ -124,8 +134,8 @@ var clickerZero = function() {
     completionMessage.textContent = 'Thank you for your participation! You are done!';
     selectorElement.appendChild(completionMessage);
   }
-    renderImages();
-    cycleCounter += 1;
+  renderImages();
+  cycleCounter += 1;
 };
 
 var clickerOne = function() {
@@ -134,7 +144,7 @@ var clickerOne = function() {
       console.log(imagesArray[selectionNumbers[1]].imageName);
       if (imagesArray[i].imageName === imagesArray[selectionNumbers[1]].imageName) {
         imagesArray[i].timesClicked += 1;
-        console.log('This was clicked ' + imagesArray[i].timesClicked);
+        console.log('Times clicked = ' + imagesArray[i].timesClicked);
        } 
     }
 
@@ -145,8 +155,8 @@ var clickerOne = function() {
     completionMessage.textContent = 'Thank you for your participation! You are done!';
     selectorElement.appendChild(completionMessage);
   }
-    renderImages();
-    cycleCounter += 1;
+  renderImages();
+  cycleCounter += 1;
 };
 
 var clickerTwo = function() {
@@ -155,7 +165,7 @@ var clickerTwo = function() {
       console.log(imagesArray[selectionNumbers[2]].imageName);
       if (imagesArray[i].imageName === imagesArray[selectionNumbers[2]].imageName) {
         imagesArray[i].timesClicked += 1;
-        console.log('This was clicked ' + imagesArray[i].timesClicked);
+        console.log('Times clicked = ' + imagesArray[i].timesClicked);
        } 
     }
 
@@ -166,8 +176,8 @@ var clickerTwo = function() {
     completionMessage.textContent = 'Thank you for your participation! You are done!';
     selectorElement.appendChild(completionMessage);
   }
-    renderImages();
-    cycleCounter += 1;
+  renderImages();
+  cycleCounter += 1;
 };
 
 var choiceZero = document.getElementById('randomImage0')
