@@ -102,11 +102,12 @@ var renderImages = function() {
 renderImages();
 
 //function for listener
-function userSelection(option) {
+var storedSelection = function userSelection(option) {
+
   if (cycleCounter < 25) {
     for (var i = 0; i < imagesArray.length; i++) {
-      console.log(this.id.value);
-      if (imagesArray[i].imageName === this.id.value) {
+      // console.log(this.id.value);
+      if (imagesArray[i].imageName === option) {
         imagesArray[i].timesClicked++;
         console.log('This was clicked ' + imagesArray[i].timesClicked);
       } else {
@@ -125,6 +126,11 @@ function userSelection(option) {
 };
 
 //listener for when an image is selected
-document.getElementsByClassName('option0').addEventListener('click', userSelection(this.id));
-document.getElementsByClassName('option1').addEventListener('click', userSelection(this.id));
-document.getElementsByClassName('option2').addEventListener('click', userSelection(this.id));
+var optionZero = document.getElementsByClassName('option0');
+optionZero.addEventListener('click', userSelection(imagesArray[selectionNumbers[0]].imageName));
+
+var optionOne = document.getElementsByClassName('option1');
+optionOne.addEventListener('click', userSelection(imagesArray[selectionNumbers[1]].imageName));
+
+var optionTwo = document.getElementsByClassName('option2');
+optionTwo.addEventListener('click', userSelection(imagesArray[selectionNumbers[2]].imageName));
