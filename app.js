@@ -59,6 +59,7 @@ var imgSrc = function() {
   selectionNumbers[0] = num1;
   selectionNumbers[1] = num2;
   selectionNumbers[2] = num3;
+
   //log array to confirm non-repeating numbers are generated each time function is run
   console.log(selectionNumbers);
 };
