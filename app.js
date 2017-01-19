@@ -1,173 +1,162 @@
 'use strict';
-
-//global variables
-var cycleCounter = 0;
+var cycleCount = 0;
 var selectionNumbers = [];
 var num1 = 0;
 var num2 = 0;
 var num3 = 0;
-var imageElement0, imageElement1, imageElement2;
-var shownImage0, shownImage1, shownImage2;
-var selectorElement = document.getElementById('selection-field');
-var mainTag = document.getElementById('main-tag');
+var imgEl1, imgEl2, imgEl3;
+var showenImg1, showenImg2, showenImg3;
+var selectEl = document.getElementById('setting-img');
+var chartData = [];
 
-//Image constructor function
-function Image(imageName, imageFilePath) {
-  this.imageName = imageName;
-  this.imageFilePath = imageFilePath;
-
-  var timesClicked = 0;
-  this.timesClicked = timesClicked;
-  var timeShown = 0;
-  this.timeShown = timeShown;
+function ProductImg(imgName, filePath, id){
+  this.imgName = imgName;
+  this.filePath = filePath;
+  this.id = id;
+  this.clickCount = 0;
+  this.timeShown = 0;
 }
 
-//Initial image pool stored in imagesArray variable
-var bag = new Image('bag', 'img/bag.jpg');
-var banana = new Image('banana', 'img/banana.jpg');
-var bathroom = new Image('bathroom', 'img/bathroom.jpg');
-var boots = new Image('boots', 'img/boots.jpg');
-var breakfast = new Image('breakfast', 'img/breakfast.jpg');
-var bubblegum = new Image('bubblegum', 'img/bubblegum.jpg');
-var chair = new Image('chair', 'img/chair.jpg');
-var cthulhu = new Image('cthulhu', 'img/cthulhu.jpg');
-var dogDuck = new Image('dogDuck', 'img/dog-duck.jpg');
-var dragon = new Image('dragon', 'img/dragon.jpg');
-var pen = new Image('pen', 'img/pen.jpg');
-var petSweep = new Image('petSweep', 'img/pet-sweep.jpg');
-var scissors = new Image('scissors', 'img/scissors.jpg');
-var shark = new Image('shark', 'img/shark.jpg');
-var sweep = new Image('sweep', 'img/sweep.png');
-var tauntaun = new Image('tauntaun', 'img/tauntaun.jpg');
-var unicorn = new Image('unicorn', 'img/unicorn.jpg');
-var usb = new Image('usb', 'img/usb.gif');
-var waterCan = new Image('waterCan', 'img/water-can.jpg');
-var wineGlass = new Image('wineGlass', 'img/wine-glass.jpg');
+var bag = new ProductImg('bag', 'img/bag.jpg', 'bag');
+var banana = new ProductImg('banana', 'img/banana.jpg', 'banana');
+var bathroom = new ProductImg('bathroom', 'img/bathroom.jpg', 'bathroom');
+var boots = new ProductImg('boots', 'img/boots.jpg', 'boots');
+var breakfast = new ProductImg('breakfast', 'img/breakfast.jpg', 'breakfast');
+var bubblegum = new ProductImg('bubblegum', 'img/bubblegum.jpg', 'bubblegum');
+var chair = new ProductImg('chair', 'img/chair.jpg', 'chair');
+var cthulhu = new ProductImg ('cthulhu', 'img/cthulhu.jpg', 'cthulhu');
+var dogDuck = new ProductImg ('dog-duck', 'img/dog-duck.jpg', 'dogDuck');
+var dragon = new ProductImg ('dragon', 'img/dragon.jpg', 'dragon');
+var pen = new ProductImg ('pen', 'img/pen.jpg', 'pen');
+var petSweep = new ProductImg ('pet-sweep', 'img/pet-sweep.jpg', 'petSweep');
+var scissors = new ProductImg ('scissors', 'img/scissors.jpg', 'scissors');
+var shark = new ProductImg ('shark', 'img/shark.jpg', 'shark');
+var sweep = new ProductImg ('sweep', 'img/sweep.png', 'sweep');
+var tauntaun = new ProductImg ('tauntaun', 'img/tauntaun.jpg', 'tauntaun');
+var unicorn = new ProductImg ('unicorn', 'img/unicorn.jpg', 'unicorn');
+var usb = new ProductImg ('usb', 'img/usb.gif', 'usb');
+var waterCan = new ProductImg ('water-can', 'img/water-can.jpg', 'waterCan');
+var wineGlass = new ProductImg ('wine-glass', 'img/wine-glass.jpg', 'wineGlass');
 
-var imagesArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass];
+var imageArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass];
 
-//Selector function
-var imageSelector = function() {
+var imgSrc = function() {
   //chooses a random number, so long as that number was not in the selectionNumbers array and sets it to a given position in the array
   do {
-    num1 = Math.floor(Math.random() * (imagesArray.length + 1));
+    num1 = Math.floor(Math.random() * (imageArray.length + 1));
   } while (selectionNumbers.includes(num1) || num1 === num2 || num1 === num3 || num1 === 20);
-
   do {
-    num2 = Math.floor(Math.random() * (imagesArray.length + 1));
+    num2 = Math.floor(Math.random() * (imageArray.length + 1));
   } while (selectionNumbers.includes(num2) || num2 === num1 || num2 === num3 || num2 === 20);
-
   do {
-    num3 = Math.floor(Math.random() * (imagesArray.length + 1));
+    num3 = Math.floor(Math.random() * (imageArray.length + 1));
   } while (selectionNumbers.includes(num3) || num3 === num1 || num3 === num2 || num3 === 20);
 
   selectionNumbers[0] = num1;
   selectionNumbers[1] = num2;
   selectionNumbers[2] = num3;
-
   //log array to confirm non-repeating numbers are generated each time function is run
   console.log(selectionNumbers);
 };
 
-//function to remove existing set of images, if any exist
-var imageRemover = function() {
-  var inputId = document.getElementById('selection-field');
-
-  if (inputId !== null) {
+var imgRem = function(){
+  var inputId = document.getElementById('setting-img');
+  if (inputId !== null){
     inputId.remove();
   }
-  var createDiv = document.createElement('div');
-  createDiv.setAttribute('id', 'selection-field');
-  mainTag.appendChild(createDiv);
-  selectorElement = document.getElementById('selection-field');
+};
+var createRendItem = function(){
+  var sectionEl = document.createElement('section');
+  sectionEl.setAttribute('id', 'funk');
+  imgEl1 = document.createElement('img');
+  imgEl2 = document.createElement('img');
+  imgEl3 = document.createElement('img');
+  console.log(imgEl1, imgEl2, imgEl3);
+  imgEl1.setAttribute('id', 'randImg');
+  imgEl2.setAttribute('id', 'randImg');
+  imgEl3.setAttribute('id', 'randImg');
+  sectionEl.appendChild(imgEl1);
+  sectionEl.appendChild(imgEl2);
+  sectionEl.appendChild(imgEl3);
+  selectEl.appendChild(sectionEl);
 };
 
-//create the elements for rendering
-var createRenderElements = function() {
+createRendItem();
 
-  var sectionElement = document.createElement('section');
-  sectionElement.setAttribute('id', 'holder');
-  imageElement0 = document.createElement('img');
-  imageElement0.setAttribute('id', 'randomImage');
-  imageElement1 = document.createElement('img');
-  imageElement1.setAttribute('id', 'randomImage');
-  imageElement2 = document.createElement('img');
-  imageElement2.setAttribute('id', 'randomImage');
-  sectionElement.appendChild(imageElement0);
-  sectionElement.appendChild(imageElement1);
-  sectionElement.appendChild(imageElement2);
-  selectorElement.appendChild(sectionElement);
-}
-createRenderElements();
+var rendImg = function (){
 
-//function to display images to html based on the numbers stored in selectionNumbers
-var renderImages = function() {
-  //chooses 3 random images
-  imageSelector();
+  imgSrc();
+  showenImg1 = imageArray[selectionNumbers[0]];
+  showenImg2 = imageArray[selectionNumbers[1]];
+  showenImg3 = imageArray[selectionNumbers[2]];
 
-  //set variables equal to random index
-  shownImage0 = imagesArray[selectionNumbers[0]];
-  shownImage1 = imagesArray[selectionNumbers[1]];
-  shownImage2 = imagesArray[selectionNumbers[2]];
+  imgEl1.setAttribute('src', imageArray[selectionNumbers[0]].filePath);
+  imgEl2.setAttribute('src', imageArray[selectionNumbers[1]].filePath);
+  imgEl3.setAttribute('src', imageArray[selectionNumbers[2]].filePath);
 
-  imageElement0.setAttribute('src', imagesArray[selectionNumbers[0]].imageFilePath);
-  imageElement1.setAttribute('src', imagesArray[selectionNumbers[1]].imageFilePath);
-  imageElement2.setAttribute('src', imagesArray[selectionNumbers[2]].imageFilePath);
-
-  imageElement0.setAttribute('id', imagesArray[selectionNumbers[0]].imageName);
-  imageElement1.setAttribute('id', imagesArray[selectionNumbers[1]].imageName);
-  imageElement2.setAttribute('id', imagesArray[selectionNumbers[2]].imageName);
-
-  imagesArray[selectionNumbers[0]].timeShown++;
-  imagesArray[selectionNumbers[1]].timeShown++;
-  imagesArray[selectionNumbers[2]].timeShown++;
 };
 
-renderImages();
+rendImg();
 
-//listeners
-imageElement0.addEventListener('click', imageZero, false);
-function imageZero() {
-  shownImage0.timesClicked++
-  cycleCounter++;
-  imageRemover();
-  createRenderElements();
-  renderImages();
+imgEl1.addEventListener('click',imgOne, false);
+function imgOne(){
+  showenImg1.clickCount++;
+  cycleCount++;
+  console.log(showenImg1.clickCount);
+}
+imgEl2.addEventListener('click',imgTwo, false);
+function imgTwo(){
+  showenImg2.clickCount++;
+  cycleCount++;
+  console.log(showenImg2.clickCount);
+}
+imgEl3.addEventListener('click',imgThree, false);
+function imgThree(){
+  showenImg3.clickCount++;
+  cycleCount++;
+  console.log(showenImg3.clickCount);
 }
 
-imageElement1.addEventListener('click', imageOne, false);
-function imageOne() {
-  shownImage1.timesClicked++
-  cycleCounter++;
-  imageRemover();
-  createRenderElements();
-  renderImages();
-}
+//listener for when an image is selected
+var choices = document.getElementById('setting-img');
+choices.onclick = function() {
 
-imageElement2.addEventListener('click', imageTwo, false);
-function imageTwo() {
-  shownImage2.timesClicked++
-  cycleCounter++;
-  imageRemover();
-  createRenderElements();
-  renderImages();
-}
+  if (cycleCount < 25) {
+    for (var i = 0; i < imageArray.length; i++) {
+      if (imageArray[i].imgName == this.imgName) {
+        imageArray[i].clickCount++;
+      }
+    }
+    rendImg();
+    cycleCount++;
+
+  } else {
+    // imgRem();
+    //build the chart data
+    for (var index = 0; index < imageArray.length; index++) {
+      var clickedData = imageArray[index].clickCount;
+      chartData.push(clickedData);
+      console.log(chartData);
+    }
+    buildChart();
+    var completionMessage = document.createElement('p');
+    completionMessage.textContent = 'You\'re finished!';
+    selectEl.appendChild(completionMessage);
+  }
+
+};
+var context = document.getElementById('results-chart').getContext('2d');
 
 //variables and options for building the results chart on the page
 var buildChart = function() {
   var renderChart = document.getElementById('results-chart');
 
-  //build the chart data
-  var chartData = [];
-  for (var index = 0; index < imagesArray.length; index++) {
-    var clickedData = imagesArray[index].timesClicked;
-    chartData.push(clickedData);
-  }
+
 
   //build list of names for labels
   var chartLabels = [];
-  for (var index = 0; index < imagesArray.length; index++) {
-    var labelsData = imagesArray[index].imageName;
+  for (var index = 0; index < imageArray.length; index++) {
+    var labelsData = imageArray[index].imgName;
     chartLabels.push(labelsData);
   }
 
@@ -187,7 +176,7 @@ var buildChart = function() {
   var imageResultsChart = new Chart(context, {
     type: 'bar',
     data: {
-      labels: chartColors,
+      labels: chartLabels,
       datasets: [{
         label: '# of votes for each color',
         data: chartData,
