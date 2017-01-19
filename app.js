@@ -9,6 +9,7 @@ var showenImg1, showenImg2, showenImg3;
 var selectEl = document.getElementById('setting-img');
 var chartData = [];
 
+//image object constructor
 function ProductImg(imgName, filePath, id){
   this.imgName = imgName;
   this.filePath = filePath;
@@ -17,6 +18,7 @@ function ProductImg(imgName, filePath, id){
   this.timeShown = 0;
 }
 
+//initializing the images into the constructor
 var bag = new ProductImg('bag', 'img/bag.jpg', 'bag');
 var banana = new ProductImg('banana', 'img/banana.jpg', 'banana');
 var bathroom = new ProductImg('bathroom', 'img/bathroom.jpg', 'bathroom');
@@ -38,8 +40,10 @@ var usb = new ProductImg ('usb', 'img/usb.gif', 'usb');
 var waterCan = new ProductImg ('water-can', 'img/water-can.jpg', 'waterCan');
 var wineGlass = new ProductImg ('wine-glass', 'img/wine-glass.jpg', 'wineGlass');
 
+//pushing the image objects into an array
 var imageArray = [bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass];
 
+//function to generate three non-repeating random numbers and store them
 var imgSrc = function() {
   //chooses a random number, so long as that number was not in the selectionNumbers array and sets it to a given position in the array
   do {
@@ -59,12 +63,15 @@ var imgSrc = function() {
   console.log(selectionNumbers);
 };
 
+//function to remove the images from the page (currently not in use)
 var imgRem = function(){
   var inputId = document.getElementById('setting-img');
   if (inputId !== null){
     inputId.remove();
   }
 };
+
+//function to create the html elements for the image render
 var createRendItem = function(){
   var sectionEl = document.createElement('section');
   sectionEl.setAttribute('id', 'funk');
@@ -83,6 +90,7 @@ var createRendItem = function(){
 
 createRendItem();
 
+//function to render the current set of randomized images to the page
 var rendImg = function (){
 
   imgSrc();
@@ -98,6 +106,7 @@ var rendImg = function (){
 
 rendImg();
 
+//event listeners for each of the three images on the page
 imgEl1.addEventListener('click',imgOne, false);
 function imgOne(){
   showenImg1.clickCount++;
