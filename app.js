@@ -131,11 +131,10 @@ choices.onclick = function() {
     cycleCount++;
 
   } else {
-    // imgRem();
     //build the chart data
     for (var index = 0; index < imageArray.length; index++) {
       var clickedData = imageArray[index].clickCount;
-      chartData.push(clickedData);
+      chartData[index] = clickedData;
       console.log(chartData);
     }
     buildChart();
@@ -157,7 +156,7 @@ var buildChart = function() {
   var chartLabels = [];
   for (var index = 0; index < imageArray.length; index++) {
     var labelsData = imageArray[index].imgName;
-    chartLabels.push(labelsData);
+    chartLabels[index] = labelsData;
   }
 
   var chartColors = ['red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple'];
