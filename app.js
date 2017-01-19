@@ -6,10 +6,9 @@ var selectionNumbers = [,,];
 var num1 = 0;
 var num2 = 0;
 var num3 = 0;
+var imageElement0, imageElement1, imageElement2;
+var shownImage0, shownImage1, shownImage2;
 var selectorElement = document.getElementById('selection-field');
-var mainTag = document.getElementById('main-tag');
-var sectionElement = document.createElement('section');
-var imageElement = document.createElement('img');
 
 //Image constructor function
 function Image(imageName, imageFilePath) {
@@ -20,8 +19,6 @@ function Image(imageName, imageFilePath) {
   this.timesClicked = timesClicked;
   var timeShown = 0;
   this.timeShown = timeShown;
-  var htmlId = 'randomImage';
-  this.htmlId = htmlId;
 }
 
 //Initial image pool stored in imagesArray variable
@@ -73,121 +70,148 @@ var imageSelector = function() {
 
 //function to remove existing set of images, if any exist
 var imageRemover = function() {
-  var inputIdZero = document.getElementById('selection-field');
-  // var inputIdOne = document.getElementById('randomImage1');
-  // var inputIdTwo = document.getElementById('randomImage2');
+  var inputId = document.getElementById('selection-field');
 
-  if (inputIdZero !== null || inputIdOne !== null || inputIdTwo !== null) {
-    inputIdZero.remove();
-    // inputIdOne.remove();
-    // inputIdTwo.remove();
+  if (inputId !== null) {
+    inputId.remove();
+    createRenderElements();
   }
-  var inputDiv = document.createElement('div');
-  inputDiv.setAttribute('id', 'selection-field');
-  console.log(inputDiv);
-  mainTag.appendChild(inputDiv);
 };
+
+//create the elements for rendering
+var createRenderElements = function() {
+  var sectionElement = document.createElement('section');
+  sectionElement.setAttribute('id', 'holder');
+  imageElement0 = document.createElement('img');
+  imageElement0.setAttribute('id', 'randomImage');
+  imageElement1 = document.createElement('img');
+  imageElement1.setAttribute('id', 'randomImage');
+  imageElement2 = document.createElement('img');
+  imageElement2.setAttribute('id', 'randomImage');
+  sectionElement.appendChild(imageElement0);
+  sectionElement.appendChild(imageElement1);
+  sectionElement.appendChild(imageElement2);
+  selectorElement.appendChild(sectionElement);
+}
+createRenderElements();
 
 //function to display images to html based on the numbers stored in selectionNumbers
 var renderImages = function() {
-  //clears any existing images from the page
-  imageRemover();
+  //chooses 3 random images
   imageSelector();
 
-  for (var i = 0; i < selectionNumbers.length; i++) {
-    console.log('This loop is happening.')
+  shownImage0 = imagesArray[selectionNumbers[0]];
+  shownImage1 = imagesArray[selectionNumbers[1]];
+  shownImage2 = imagesArray[selectionNumbers[2]];
 
-    // sectionElement.setAttribute('id', 'randomImage' + i);
-    
-    console.log(sectionElement);
-    
-    imageElement.setAttribute('id', 'randomImage' + i);
-    imageElement.setAttribute('src', imagesArray[selectionNumbers[i]].imageFilePath);
-    sectionElement.appendChild(imageElement);
-    selectorElement.appendChild(sectionElement);
-    imagesArray[selectionNumbers[i]].timeShown++;
-    console.log(imagesArray[selectionNumbers[i]].timeShown);
-  }
+  imageElement0.setAttribute('src', imagesArray[selectionNumbers[0]].imageFilePath);
+  imageElement1.setAttribute('src', imagesArray[selectionNumbers[1]].imageFilePath);
+  imageElement2.setAttribute('src', imagesArray[selectionNumbers[2]].imageFilePath);
+
+  imageElement0.setAttribute('id', imagesArray[selectionNumbers[0]].timesClicked);
+  imageElement1.setAttribute('id', imagesArray[selectionNumbers[1]].timesClicked);
+  imageElement2.setAttribute('id', imagesArray[selectionNumbers[2]].timesClicked);
 };
 
 renderImages();
+
+imageElement0.addEventListener('click', imageZero, false);
+function imageZero() {
+  imageSelector();
+  shownImage0.timesClicked++
+  cycleCounter++;
+}
+
+imageElement1.addEventListener('click', imageOne, false);
+function imageOne() {
+  imageSelector();
+  shownImage1.timesClicked++
+  cycleCounter++;
+}
+
+imageElement2.addEventListener('click', imageTwo, false);
+function imageTwo() {
+  imageSelector();
+  shownImage2.timesClicked++
+  cycleCounter++;
+}
 
 //listener for when an image is selected
 // var choice = document.getElementById('selection-field');
 
 //function for listener
 // choice.onclick = function() {
-var clickerZero = function() {
-  if (cycleCounter < 25) {
-    for (var i = 0; i < imagesArray.length; i++) {
-      console.log(imagesArray[selectionNumbers[0]].imageName);
-      if (imagesArray[i].imageName === imagesArray[selectionNumbers[0]].imageName) {
-        imagesArray[i].timesClicked += 1;
-        console.log('Times clicked = ' + imagesArray[i].timesClicked);
-       } 
-    }
+// var clickerZero = function() {
+//   if (cycleCounter < 25) {
+//     for (var i = 0; i < imagesArray.length; i++) {
+//       console.log(imagesArray[selectionNumbers[0]].imageName);
+//       if (imagesArray[i].imageName === imagesArray[selectionNumbers[0]].imageName) {
+//         imagesArray[i].timesClicked += 1;
+//         console.log('Times clicked = ' + imagesArray[i].timesClicked);
+//        } 
+//     }
 
-    // console.log(parseInt(this.timesClicked));
-  } else {
-    imageRemover();
-    var completionMessage = document.createElement('p');
-    completionMessage.textContent = 'Thank you for your participation! You are done!';
-    selectorElement.appendChild(completionMessage);
-  }
-  renderImages();
-  cycleCounter += 1;
-};
+//     // console.log(parseInt(this.timesClicked));
+//   } else {
+//     imageRemover();
+//     var completionMessage = document.createElement('p');
+//     completionMessage.textContent = 'Thank you for your participation! You are done!';
+//     selectorElement.appendChild(completionMessage);
+//   }
+//   renderImages();
+//   cycleCounter += 1;
+// };
 
-var clickerOne = function() {
-  if (cycleCounter < 25) {
-    for (var i = 0; i < imagesArray.length; i++) {
-      console.log(imagesArray[selectionNumbers[1]].imageName);
-      if (imagesArray[i].imageName === imagesArray[selectionNumbers[1]].imageName) {
-        imagesArray[i].timesClicked += 1;
-        console.log('Times clicked = ' + imagesArray[i].timesClicked);
-       } 
-    }
+// var clickerOne = function() {
+//   if (cycleCounter < 25) {
+//     for (var i = 0; i < imagesArray.length; i++) {
+//       console.log(imagesArray[selectionNumbers[1]].imageName);
+//       if (imagesArray[i].imageName === imagesArray[selectionNumbers[1]].imageName) {
+//         imagesArray[i].timesClicked += 1;
+//         console.log('Times clicked = ' + imagesArray[i].timesClicked);
+//        } 
+//     }
 
-    // console.log(parseInt(this.timesClicked));
-  } else {
-    imageRemover();
-    var completionMessage = document.createElement('p');
-    completionMessage.textContent = 'Thank you for your participation! You are done!';
-    selectorElement.appendChild(completionMessage);
-  }
-  renderImages();
-  cycleCounter += 1;
-};
+//     // console.log(parseInt(this.timesClicked));
+//   } else {
+//     imageRemover();
+//     var completionMessage = document.createElement('p');
+//     completionMessage.textContent = 'Thank you for your participation! You are done!';
+//     selectorElement.appendChild(completionMessage);
+//   }
+//   renderImages();
+//   cycleCounter += 1;
+// };
 
-var clickerTwo = function() {
-  if (cycleCounter < 25) {
-    for (var i = 0; i < imagesArray.length; i++) {
-      console.log(imagesArray[selectionNumbers[2]].imageName);
-      if (imagesArray[i].imageName === imagesArray[selectionNumbers[2]].imageName) {
-        imagesArray[i].timesClicked += 1;
-        console.log('Times clicked = ' + imagesArray[i].timesClicked);
-       } 
-    }
+// var clickerTwo = function() {
+//   if (cycleCounter < 25) {
+//     for (var i = 0; i < imagesArray.length; i++) {
+//       console.log(imagesArray[selectionNumbers[2]].imageName);
+//       if (imagesArray[i].imageName === imagesArray[selectionNumbers[2]].imageName) {
+//         imagesArray[i].timesClicked += 1;
+//         console.log('Times clicked = ' + imagesArray[i].timesClicked);
+//        } 
+//     }
 
-    // console.log(parseInt(this.timesClicked));
-  } else {
-    imageRemover();
-    var completionMessage = document.createElement('p');
-    completionMessage.textContent = 'Thank you for your participation! You are done!';
-    selectorElement.appendChild(completionMessage);
-  }
-  renderImages();
-  cycleCounter += 1;
-};
+//     // console.log(parseInt(this.timesClicked));
+//   } else {
+//     imageRemover();
+//     var completionMessage = document.createElement('p');
+//     completionMessage.textContent = 'Thank you for your participation! You are done!';
+//     selectorElement.appendChild(completionMessage);
+//   }
+//   renderImages();
+//   cycleCounter += 1;
+// };
 
-var choiceZero = document.getElementById('randomImage0')
-choiceZero.addEventListener('click', clickerZero);
+// var choiceZero = document.getElementById('randomImage0')
+// choiceZero.addEventListener('click', clickerZero);
 
-var choiceOne = document.getElementById('randomImage1')
-choiceOne.addEventListener('click', clickerOne);
+// var choiceOne = document.getElementById('randomImage1')
+// choiceOne.addEventListener('click', clickerOne);
 
-var choiceTwo = document.getElementById('randomImage2')
-choiceTwo.addEventListener('click', clickerTwo);
+// var choiceTwo = document.getElementById('randomImage2')
+// choiceTwo.addEventListener('click', clickerTwo);
 
 //variables and options for building the results chart on the page
 var buildChart = function() {
