@@ -105,6 +105,7 @@ var renderImages = function() {
   //chooses 3 random images
   imageSelector();
 
+  //set variables equal to random index
   shownImage0 = imagesArray[selectionNumbers[0]];
   shownImage1 = imagesArray[selectionNumbers[1]];
   shownImage2 = imagesArray[selectionNumbers[2]];
@@ -113,116 +114,44 @@ var renderImages = function() {
   imageElement1.setAttribute('src', imagesArray[selectionNumbers[1]].imageFilePath);
   imageElement2.setAttribute('src', imagesArray[selectionNumbers[2]].imageFilePath);
 
-  imageElement0.setAttribute('id', imagesArray[selectionNumbers[0]].timesClicked);
-  imageElement1.setAttribute('id', imagesArray[selectionNumbers[1]].timesClicked);
-  imageElement2.setAttribute('id', imagesArray[selectionNumbers[2]].timesClicked);
+  imageElement0.setAttribute('id', imagesArray[selectionNumbers[0]].imageName);
+  imageElement1.setAttribute('id', imagesArray[selectionNumbers[1]].imageName);
+  imageElement2.setAttribute('id', imagesArray[selectionNumbers[2]].imageName);
+
+  imagesArray[selectionNumbers[0]].timeShown++;
+  imagesArray[selectionNumbers[1]].timeShown++;
+  imagesArray[selectionNumbers[2]].timeShown++;
 };
 
 renderImages();
 
+//listeners
 imageElement0.addEventListener('click', imageZero, false);
 function imageZero() {
+  shownImage0.timesClicked++
+  cycleCounter++;
   imageRemover();
   createRenderElements();
   renderImages();
-  shownImage0.timesClicked++
-  cycleCounter++;
 }
 
 imageElement1.addEventListener('click', imageOne, false);
 function imageOne() {
+  shownImage1.timesClicked++
+  cycleCounter++;
   imageRemover();
   createRenderElements();
   renderImages();
-  shownImage1.timesClicked++
-  cycleCounter++;
 }
 
 imageElement2.addEventListener('click', imageTwo, false);
 function imageTwo() {
+  shownImage2.timesClicked++
+  cycleCounter++;
   imageRemover();
   createRenderElements();
   renderImages();
-  shownImage2.timesClicked++
-  cycleCounter++;
 }
-
-//listener for when an image is selected
-// var choice = document.getElementById('selection-field');
-
-//function for listener
-// choice.onclick = function() {
-// var clickerZero = function() {
-//   if (cycleCounter < 25) {
-//     for (var i = 0; i < imagesArray.length; i++) {
-//       console.log(imagesArray[selectionNumbers[0]].imageName);
-//       if (imagesArray[i].imageName === imagesArray[selectionNumbers[0]].imageName) {
-//         imagesArray[i].timesClicked += 1;
-//         console.log('Times clicked = ' + imagesArray[i].timesClicked);
-//        } 
-//     }
-
-//     // console.log(parseInt(this.timesClicked));
-//   } else {
-//     imageRemover();
-//     var completionMessage = document.createElement('p');
-//     completionMessage.textContent = 'Thank you for your participation! You are done!';
-//     selectorElement.appendChild(completionMessage);
-//   }
-//   renderImages();
-//   cycleCounter += 1;
-// };
-
-// var clickerOne = function() {
-//   if (cycleCounter < 25) {
-//     for (var i = 0; i < imagesArray.length; i++) {
-//       console.log(imagesArray[selectionNumbers[1]].imageName);
-//       if (imagesArray[i].imageName === imagesArray[selectionNumbers[1]].imageName) {
-//         imagesArray[i].timesClicked += 1;
-//         console.log('Times clicked = ' + imagesArray[i].timesClicked);
-//        } 
-//     }
-
-//     // console.log(parseInt(this.timesClicked));
-//   } else {
-//     imageRemover();
-//     var completionMessage = document.createElement('p');
-//     completionMessage.textContent = 'Thank you for your participation! You are done!';
-//     selectorElement.appendChild(completionMessage);
-//   }
-//   renderImages();
-//   cycleCounter += 1;
-// };
-
-// var clickerTwo = function() {
-//   if (cycleCounter < 25) {
-//     for (var i = 0; i < imagesArray.length; i++) {
-//       console.log(imagesArray[selectionNumbers[2]].imageName);
-//       if (imagesArray[i].imageName === imagesArray[selectionNumbers[2]].imageName) {
-//         imagesArray[i].timesClicked += 1;
-//         console.log('Times clicked = ' + imagesArray[i].timesClicked);
-//        } 
-//     }
-
-//     // console.log(parseInt(this.timesClicked));
-//   } else {
-//     imageRemover();
-//     var completionMessage = document.createElement('p');
-//     completionMessage.textContent = 'Thank you for your participation! You are done!';
-//     selectorElement.appendChild(completionMessage);
-//   }
-//   renderImages();
-//   cycleCounter += 1;
-// };
-
-// var choiceZero = document.getElementById('randomImage0')
-// choiceZero.addEventListener('click', clickerZero);
-
-// var choiceOne = document.getElementById('randomImage1')
-// choiceOne.addEventListener('click', clickerOne);
-
-// var choiceTwo = document.getElementById('randomImage2')
-// choiceTwo.addEventListener('click', clickerTwo);
 
 //variables and options for building the results chart on the page
 var buildChart = function() {
