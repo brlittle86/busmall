@@ -1,4 +1,6 @@
 'use strict';
+
+//global variables
 var cycleCount = 0;
 var selectionNumbers = [];
 var num1 = 0;
@@ -8,6 +10,7 @@ var imgEl1, imgEl2, imgEl3;
 var showenImg1, showenImg2, showenImg3;
 var selectEl = document.getElementById('setting-img');
 var chartData = [];
+localStorage.storedData;
 
 //image object constructor
 function ProductImg(imgName, filePath, id){
@@ -139,10 +142,18 @@ choices.addEventListener('click', function clickListener() {
 
   } else {
     //build the chart data
-    for (var index = 0; index < imageArray.length; index++) {
-      var clickedData = imageArray[index].clickCount;
-      chartData[index] = clickedData;
+    for (var i = 0; i < imageArray.length; i++) {
+      var clickedData = imageArray[i].clickCount;
+      var storedTotal = 0;
+      var storedData = localStorage.getItem('storedData');
+      console.log(storedData);
+      for (var j = 0; j < storedData.length; j++) {
+        storedTotal += storedData[j][i]; 
+      }
+      clickedData += storedTotal;
+      chartData[i] = clickedData;
     }
+    localStorage.setItem('storedData', chartData);
 
     console.log(chartData);
     buildChart();
