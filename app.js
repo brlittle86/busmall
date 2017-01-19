@@ -110,27 +110,24 @@ rendImg();
 imgEl1.addEventListener('click',imgOne, false);
 function imgOne(){
   showenImg1.clickCount++;
-  cycleCount++;
   console.log(showenImg1.clickCount);
 }
 imgEl2.addEventListener('click',imgTwo, false);
 function imgTwo(){
   showenImg2.clickCount++;
-  cycleCount++;
   console.log(showenImg2.clickCount);
 }
 imgEl3.addEventListener('click',imgThree, false);
 function imgThree(){
   showenImg3.clickCount++;
-  cycleCount++;
   console.log(showenImg3.clickCount);
 }
 
 //listener for when an image is selected
 var choices = document.getElementById('setting-img');
-choices.onclick = function() {
+choices.addEventListener('click', function clickListener() {
 
-  if (cycleCount < 25) {
+  if (cycleCount < 5) {
     for (var i = 0; i < imageArray.length; i++) {
       if (imageArray[i].imgName == this.imgName) {
         imageArray[i].clickCount++;
@@ -144,22 +141,22 @@ choices.onclick = function() {
     for (var index = 0; index < imageArray.length; index++) {
       var clickedData = imageArray[index].clickCount;
       chartData[index] = clickedData;
-      console.log(chartData);
     }
+
+    console.log(chartData);
     buildChart();
-    var completionMessage = document.createElement('p');
-    completionMessage.textContent = 'You\'re finished!';
-    selectEl.appendChild(completionMessage);
+    imgEl1.removeEventListener('click',imgOne);
+    imgEl2.removeEventListener('click',imgTwo);
+    imgEl3.removeEventListener('click',imgThree);
+    choices.removeEventListener('click',clickListener);
   }
 
-};
+}, false);
 var context = document.getElementById('results-chart').getContext('2d');
 
 //variables and options for building the results chart on the page
 var buildChart = function() {
   var renderChart = document.getElementById('results-chart');
-
-
 
   //build list of names for labels
   var chartLabels = [];
@@ -171,7 +168,7 @@ var buildChart = function() {
   var chartColors = ['red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple'];
 
   var chartOptions = {
-        responsive: false,
+        responsive: true,
         scales: {
         yAxes: [{
           ticks: {
