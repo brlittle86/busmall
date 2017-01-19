@@ -2,13 +2,14 @@
 
 //global variables
 var cycleCounter = 0;
-var selectionNumbers = [,,];
+var selectionNumbers = [];
 var num1 = 0;
 var num2 = 0;
 var num3 = 0;
 var imageElement0, imageElement1, imageElement2;
 var shownImage0, shownImage1, shownImage2;
 var selectorElement = document.getElementById('selection-field');
+var mainTag = document.getElementById('main-tag');
 
 //Image constructor function
 function Image(imageName, imageFilePath) {
@@ -74,12 +75,16 @@ var imageRemover = function() {
 
   if (inputId !== null) {
     inputId.remove();
-    createRenderElements();
   }
+  var createDiv = document.createElement('div');
+  createDiv.setAttribute('id', 'selection-field');
+  mainTag.appendChild(createDiv);
+  selectorElement = document.getElementById('selection-field');
 };
 
 //create the elements for rendering
 var createRenderElements = function() {
+
   var sectionElement = document.createElement('section');
   sectionElement.setAttribute('id', 'holder');
   imageElement0 = document.createElement('img');
@@ -117,21 +122,27 @@ renderImages();
 
 imageElement0.addEventListener('click', imageZero, false);
 function imageZero() {
-  imageSelector();
+  imageRemover();
+  createRenderElements();
+  renderImages();
   shownImage0.timesClicked++
   cycleCounter++;
 }
 
 imageElement1.addEventListener('click', imageOne, false);
 function imageOne() {
-  imageSelector();
+  imageRemover();
+  createRenderElements();
+  renderImages();
   shownImage1.timesClicked++
   cycleCounter++;
 }
 
 imageElement2.addEventListener('click', imageTwo, false);
 function imageTwo() {
-  imageSelector();
+  imageRemover();
+  createRenderElements();
+  renderImages();
   shownImage2.timesClicked++
   cycleCounter++;
 }
