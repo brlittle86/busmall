@@ -10,7 +10,7 @@ var imgEl1, imgEl2, imgEl3;
 var showenImg1, showenImg2, showenImg3;
 var selectEl = document.getElementById('setting-img');
 var chartData = [];
-localStorage.storedData;
+checkLocal();
 
 //image object constructor
 function ProductImg(imgName, filePath, id){
@@ -131,7 +131,7 @@ function imgThree(){
 var choices = document.getElementById('setting-img');
 choices.addEventListener('click', function clickListener() {
 
-  if (cycleCount < 25) {
+  if (cycleCount < 24) {
     for (var i = 0; i < imageArray.length; i++) {
       if (imageArray[i].imgName == this.imgName) {
         imageArray[i].clickCount++;
@@ -148,14 +148,14 @@ choices.addEventListener('click', function clickListener() {
       var storedData = localStorage.getItem('storedData');
       console.log(storedData);
       for (var j = 0; j < storedData.length; j++) {
-        storedTotal += storedData[j][i]; 
+        storedTotal += storedData;
       }
       clickedData += storedTotal;
       chartData[i] = clickedData;
     }
     localStorage.setItem('storedData', chartData);
-
     console.log(chartData);
+
     buildChart();
     imgEl1.removeEventListener('click',imgOne);
     imgEl2.removeEventListener('click',imgTwo);
@@ -164,6 +164,16 @@ choices.addEventListener('click', function clickListener() {
   }
 
 }, false);
+
+//function to prevent clearing localStorage
+function checkLocal() {
+  if (localStorage.storedData) {
+    console.log('Data exists!');
+  } else {
+    localStorage.storedData = [];
+  }
+}
+
 var context = document.getElementById('results-chart').getContext('2d');
 
 //variables and options for building the results chart on the page
