@@ -1,4 +1,6 @@
 'use strict';
+
+//global variables
 var cycleCount = 0;
 var selectionNumbers = [];
 var num1 = 0;
@@ -8,6 +10,7 @@ var imgEl1, imgEl2, imgEl3;
 var showenImg1, showenImg2, showenImg3;
 var selectEl = document.getElementById('setting-img');
 var chartData = [];
+checkLocal();
 
 //image object constructor
 function ProductImg(imgName, filePath, id){
@@ -128,7 +131,7 @@ function imgThree(){
 var choices = document.getElementById('setting-img');
 choices.addEventListener('click', function clickListener() {
 
-  if (cycleCount < 5) {
+  if (cycleCount < 24) {
     for (var i = 0; i < imageArray.length; i++) {
       if (imageArray[i].imgName == this.imgName) {
         imageArray[i].clickCount++;
@@ -139,12 +142,20 @@ choices.addEventListener('click', function clickListener() {
 
   } else {
     //build the chart data
-    for (var index = 0; index < imageArray.length; index++) {
-      var clickedData = imageArray[index].clickCount;
-      chartData[index] = clickedData;
+    for (var i = 0; i < imageArray.length; i++) {
+      var clickedData = imageArray[i].clickCount;
+      var storedTotal = 0;
+      var storedData = localStorage.getItem(JSON.parse('storedData'));
+      console.log(typeof storedData);
+      for (var j = 0; j < storedData.length; j++) {
+        storedTotal += storedData;
+      }
+      clickedData += storedTotal[i];
+      chartData[i] = clickedData;
     }
-
+    localStorage.setItem('storedData', JSON.stringify(chartData));
     console.log(chartData);
+
     buildChart();
     imgEl1.removeEventListener('click',imgOne);
     imgEl2.removeEventListener('click',imgTwo);
@@ -153,6 +164,16 @@ choices.addEventListener('click', function clickListener() {
   }
 
 }, false);
+
+//function to prevent clearing localStorage
+function checkLocal() {
+  if (localStorage.storedData) {
+    console.log('Data exists!');
+  } else {
+    localStorage.storedData = [];
+  }
+}
+
 var context = document.getElementById('results-chart').getContext('2d');
 
 //variables and options for building the results chart on the page
@@ -169,14 +190,14 @@ var buildChart = function() {
   var chartColors = ['red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple'];
 
   var chartOptions = {
-        responsive: true,
-        scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
   };
 
   var imageResultsChart = new Chart(context, {
@@ -190,5 +211,5 @@ var buildChart = function() {
       }]
     },
     options: chartOptions
-  })
+  });
 };
