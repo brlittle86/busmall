@@ -145,12 +145,12 @@ choices.addEventListener('click', function clickListener() {
     for (var i = 0; i < imageArray.length; i++) {
       var clickedData = imageArray[i].clickCount;
       var storedTotal = 0;
-      var storedData = localStorage.getItem('storedData');
-      console.log(storedData);
+      var storedData = parseInt(localStorage.getItem('storedData'));
+      console.log(typeof storedData);
       for (var j = 0; j < storedData.length; j++) {
         storedTotal += storedData;
       }
-      clickedData += storedTotal;
+      clickedData += storedTotal[i];
       chartData[i] = clickedData;
     }
     localStorage.setItem('storedData', chartData);
