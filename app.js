@@ -145,7 +145,7 @@ choices.addEventListener('click', function clickListener() {
     for (var i = 0; i < imageArray.length; i++) {
       var clickedData = imageArray[i].clickCount;
       var storedTotal = 0;
-      var storedData = parseInt(localStorage.getItem('storedData'));
+      var storedData = localStorage.getItem(JSON.parse('storedData'));
       console.log(typeof storedData);
       for (var j = 0; j < storedData.length; j++) {
         storedTotal += storedData;
@@ -153,7 +153,7 @@ choices.addEventListener('click', function clickListener() {
       clickedData += storedTotal[i];
       chartData[i] = clickedData;
     }
-    localStorage.setItem('storedData', chartData);
+    localStorage.setItem('storedData', JSON.stringify(chartData));
     console.log(chartData);
 
     buildChart();
