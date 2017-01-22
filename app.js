@@ -4,9 +4,6 @@
 var cycleCount = 0;
 var selectionNumbers = [];
 var previousSelectionNumbers = [];
-var num1 = 0;
-var num2 = 0;
-var num3 = 0;
 var imgEl1, imgEl2, imgEl3;
 var showenImg1, showenImg2, showenImg3;
 var selectEl = document.getElementById('setting-img');
@@ -14,7 +11,7 @@ var chartData = [];
 var requiredNumberOfClicks = 20;
 
 //image object constructor
-function ProductImg(imgName, filePath, id){
+function ProductImg(imgName, filePath, id) {
   this.imgName = imgName;
   this.filePath = filePath;
   this.id = id;
@@ -48,16 +45,8 @@ function getUniqueRandomNumber(previous, current) {
   return number;
 }
 
-//function to remove the images from the page (currently not in use)
-var imgRem = function(){
-  var inputId = document.getElementById('setting-img');
-  if (inputId !== null){
-    inputId.remove();
-  }
-};
-
 //function to create the html elements for the image render
-var createRendItem = function(){
+var createRendItem = function() {
   var sectionEl = document.createElement('section');
   sectionEl.setAttribute('id', 'funk');
 
@@ -79,7 +68,7 @@ var createRendItem = function(){
 createRendItem();
 
 //function to render the current set of randomized images to the page
-var rendImg = function (){
+var rendImg = function() {
 
   imgSrc();
   showenImg1 = imageArray[selectionNumbers[0]];
@@ -87,6 +76,9 @@ var rendImg = function (){
   showenImg3 = imageArray[selectionNumbers[2]];
 
   // Add back in the timeShown property.
+  imageArray[selectionNumbers[0]].timeShown++;
+  imageArray[selectionNumbers[1]].timeShown++;
+  imageArray[selectionNumbers[2]].timeShown++;
 
   imgEl1.setAttribute('src', imageArray[selectionNumbers[0]].filePath);
   imgEl2.setAttribute('src', imageArray[selectionNumbers[1]].filePath);
@@ -96,18 +88,21 @@ var rendImg = function (){
 rendImg();
 
 //event listeners for each of the three images on the page
-imgEl1.addEventListener('click',imgOne, false);
-function imgOne(){
+imgEl1.addEventListener('click', imgOne, false);
+
+function imgOne() {
   showenImg1.clickCount++;
   console.log(showenImg1.clickCount);
 }
-imgEl2.addEventListener('click',imgTwo, false);
-function imgTwo(){
+imgEl2.addEventListener('click', imgTwo, false);
+
+function imgTwo() {
   showenImg2.clickCount++;
   console.log(showenImg2.clickCount);
 }
-imgEl3.addEventListener('click',imgThree, false);
-function imgThree(){
+imgEl3.addEventListener('click', imgThree, false);
+
+function imgThree() {
   showenImg3.clickCount++;
   console.log(showenImg3.clickCount);
 }
@@ -127,17 +122,17 @@ choices.addEventListener('click', function clickListener() {
 
   } else {
     //build the chart data
-    for (var i = 0; i < imageArray.length; i++) {
-      chartData[i] = imageArray[i].clickCount;
+    for (var j = 0; j < imageArray.length; j++) {
+      chartData[j] = imageArray[j].clickCount;
     }
     localStorage.setItem('storedData', JSON.stringify(imageArray));
     console.log(chartData);
 
     buildChart();
-    imgEl1.removeEventListener('click',imgOne);
-    imgEl2.removeEventListener('click',imgTwo);
-    imgEl3.removeEventListener('click',imgThree);
-    choices.removeEventListener('click',clickListener);
+    imgEl1.removeEventListener('click', imgOne);
+    imgEl2.removeEventListener('click', imgTwo);
+    imgEl3.removeEventListener('click', imgThree);
+    choices.removeEventListener('click', clickListener);
   }
 
 }, false);
@@ -155,19 +150,19 @@ function getImageArray() {
       new ProductImg('breakfast', 'img/breakfast.jpg', 'breakfast'),
       new ProductImg('bubblegum', 'img/bubblegum.jpg', 'bubblegum'),
       new ProductImg('chair', 'img/chair.jpg', 'chair'),
-      new ProductImg ('cthulhu', 'img/cthulhu.jpg', 'cthulhu'),
-      new ProductImg ('dog-duck', 'img/dog-duck.jpg', 'dogDuck'),
-      new ProductImg ('dragon', 'img/dragon.jpg', 'dragon'),
-      new ProductImg ('pen', 'img/pen.jpg', 'pen'),
-      new ProductImg ('pet-sweep', 'img/pet-sweep.jpg', 'petSweep'),
-      new ProductImg ('scissors', 'img/scissors.jpg', 'scissors'),
-      new ProductImg ('tauntaun', 'img/tauntaun.jpg', 'tauntaun'),
-      new ProductImg ('shark', 'img/shark.jpg', 'shark'),
-      new ProductImg ('sweep', 'img/sweep.png', 'sweep'),
-      new ProductImg ('unicorn', 'img/unicorn.jpg', 'unicorn'),
-      new ProductImg ('usb', 'img/usb.gif', 'usb'),
-      new ProductImg ('water-can', 'img/water-can.jpg', 'waterCan'),
-      new ProductImg ('wine-glass', 'img/wine-glass.jpg', 'wineGlass')
+      new ProductImg('cthulhu', 'img/cthulhu.jpg', 'cthulhu'),
+      new ProductImg('dog-duck', 'img/dog-duck.jpg', 'dogDuck'),
+      new ProductImg('dragon', 'img/dragon.jpg', 'dragon'),
+      new ProductImg('pen', 'img/pen.jpg', 'pen'),
+      new ProductImg('pet-sweep', 'img/pet-sweep.jpg', 'petSweep'),
+      new ProductImg('scissors', 'img/scissors.jpg', 'scissors'),
+      new ProductImg('tauntaun', 'img/tauntaun.jpg', 'tauntaun'),
+      new ProductImg('shark', 'img/shark.jpg', 'shark'),
+      new ProductImg('sweep', 'img/sweep.png', 'sweep'),
+      new ProductImg('unicorn', 'img/unicorn.jpg', 'unicorn'),
+      new ProductImg('usb', 'img/usb.gif', 'usb'),
+      new ProductImg('water-can', 'img/water-can.jpg', 'waterCan'),
+      new ProductImg('wine-glass', 'img/wine-glass.jpg', 'wineGlass')
     ];
   }
 }
