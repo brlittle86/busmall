@@ -35,14 +35,14 @@ var imgSrc = function() {
   selectionNumbers[2] = getUniqueRandomNumber(previousSelectionNumbers, selectionNumbers);
 
   //log array to confirm non-repeating numbers are generated each time function is run
-  console.log("Current Selected: " + selectionNumbers.toString());
+  console.log('Current Selected: ' + selectionNumbers.toString());
 };
 
 function getUniqueRandomNumber(previous, current) {
   var number = 0;
 
   do {
-      number = Math.floor(Math.random() * imageArray.length);
+    number = Math.floor(Math.random() * imageArray.length);
   } while (previous.includes(number) || current.includes(number));
 
   return number;
