@@ -9,7 +9,7 @@ var shownImg1, shownImg2, shownImg3;
 var selectEl = document.getElementById('setting-img');
 var chartClicksData = [];
 var chartShownData = [];
-var requiredNumberOfClicks = 24;
+var requiredNumberOfClicks = 1;
 
 //image object constructor
 function ProductImg(imgName, filePath, id) {
