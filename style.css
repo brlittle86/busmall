@@ -1,6 +1,8 @@
 * {
   width: 960;
   text-align: center;
+  font-family: 'Nunito Sans', sans-serif;
+  color: #A3B4A2;
 }
 
 body {
@@ -8,10 +10,16 @@ body {
     background-repeat: no-repeat;
     background-size: 100%;
 }
+
 img {
   width: 300px;
   height: 300px;
-  /*background-color: white;*/
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  padding: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background-color: white;
+  margin: 4px;
 }
 
 section {
@@ -26,4 +34,24 @@ canvas {
   margin: auto;
   background-color: #7EA0B7;
   border-radius: 10px;
+  border: 4px inset;
+  color: black;
+}
+
+h1 {
+  font-family: 'Fugaz One', cursive;
+  width: 400px;
+}
+
+p {
+  width: 600px;
+}
+
+p, h1 {
+  background-color: #187795;
+  position: relative;
+  margin: 4px auto;
+  color: #A3B4A2;
+  border-radius: 4px;
+  border: 4px inset;
 }

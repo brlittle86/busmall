@@ -190,10 +190,24 @@ var buildChart = function() {
 
   var chartOptions = {
     responsive: true,
+    legend: {
+      labels:{
+        fontColor: "#000000"
+      }
+    },
     scales: {
       yAxes: [{
         ticks: {
-          beginAtZero: true
+          fontColor: "#000000",
+          stepSize: 1,
+          beginAtZero:true
+        }
+      }],
+      xAxes: [{
+        ticks: {
+          fontColor: "#000000",
+          stepSize: 1,
+          beginAtZero:true
         }
       }]
     }
