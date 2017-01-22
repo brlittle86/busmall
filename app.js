@@ -188,9 +188,6 @@ var buildChart = function() {
     chartLabels[index] = labelsData;
   }
 
-  var chartColors = ['red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple'];
-  var chartAltColors = ['blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow'];
-
   var chartOptions = {
     responsive: true,
     scales: {
@@ -209,12 +206,12 @@ var buildChart = function() {
       datasets: [{
         label: '# of votes for each color',
         data: chartClicksData,
-        backgroundColor: chartColors
+        backgroundColor: '#000000'
       },
       {
         label: '# of times shown',
         data: chartShownData,
-        backgroundColor: chartAltColors
+        backgroundColor: '#36494E'
       }]
     },
     options: chartOptions
