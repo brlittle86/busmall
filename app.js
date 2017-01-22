@@ -4,11 +4,12 @@
 var cycleCount = 0;
 var selectionNumbers = [];
 var previousSelectionNumbers = [];
-var imgEl1, imgEl2, imgEl3;
-var showenImg1, showenImg2, showenImg3;
+var imageElement1, imageElement2, imageElement3;
+var shownImg1, shownImg2, shownImg3;
 var selectEl = document.getElementById('setting-img');
-var chartData = [];
-var requiredNumberOfClicks = 20;
+var chartClicksData = [];
+var chartShownData = [];
+var requiredNumberOfClicks = 24;
 
 //image object constructor
 function ProductImg(imgName, filePath, id) {
@@ -35,6 +36,7 @@ var imgSrc = function() {
   console.log('Current Selected: ' + selectionNumbers.toString());
 };
 
+//create randomized number that is not part of the previous set of three numbers
 function getUniqueRandomNumber(previous, current) {
   var number = 0;
 
@@ -50,18 +52,18 @@ var createRendItem = function() {
   var sectionEl = document.createElement('section');
   sectionEl.setAttribute('id', 'funk');
 
-  imgEl1 = document.createElement('img');
-  imgEl2 = document.createElement('img');
-  imgEl3 = document.createElement('img');
-  console.log(imgEl1, imgEl2, imgEl3);
+  imageElement1 = document.createElement('img');
+  imageElement2 = document.createElement('img');
+  imageElement3 = document.createElement('img');
+  console.log(imageElement1, imageElement2, imageElement3);
 
-  imgEl1.setAttribute('id', 'randImg');
-  imgEl2.setAttribute('id', 'randImg');
-  imgEl3.setAttribute('id', 'randImg');
+  imageElement1.setAttribute('id', 'randImg');
+  imageElement2.setAttribute('id', 'randImg');
+  imageElement3.setAttribute('id', 'randImg');
 
-  sectionEl.appendChild(imgEl1);
-  sectionEl.appendChild(imgEl2);
-  sectionEl.appendChild(imgEl3);
+  sectionEl.appendChild(imageElement1);
+  sectionEl.appendChild(imageElement2);
+  sectionEl.appendChild(imageElement3);
   selectEl.appendChild(sectionEl);
 };
 
@@ -71,40 +73,40 @@ createRendItem();
 var rendImg = function() {
 
   imgSrc();
-  showenImg1 = imageArray[selectionNumbers[0]];
-  showenImg2 = imageArray[selectionNumbers[1]];
-  showenImg3 = imageArray[selectionNumbers[2]];
+  shownImg1 = imageArray[selectionNumbers[0]];
+  shownImg2 = imageArray[selectionNumbers[1]];
+  shownImg3 = imageArray[selectionNumbers[2]];
 
   //increment number of times shown on page
   imageArray[selectionNumbers[0]].timeShown++;
   imageArray[selectionNumbers[1]].timeShown++;
   imageArray[selectionNumbers[2]].timeShown++;
 
-  imgEl1.setAttribute('src', imageArray[selectionNumbers[0]].filePath);
-  imgEl2.setAttribute('src', imageArray[selectionNumbers[1]].filePath);
-  imgEl3.setAttribute('src', imageArray[selectionNumbers[2]].filePath);
+  imageElement1.setAttribute('src', imageArray[selectionNumbers[0]].filePath);
+  imageElement2.setAttribute('src', imageArray[selectionNumbers[1]].filePath);
+  imageElement3.setAttribute('src', imageArray[selectionNumbers[2]].filePath);
 };
 
 rendImg();
 
 //event listeners for each of the three images on the page
-imgEl1.addEventListener('click', imgOne, false);
+imageElement1.addEventListener('click', imgOne, false);
 
 function imgOne() {
-  showenImg1.clickCount++;
-  console.log(showenImg1.clickCount);
+  shownImg1.clickCount++;
+  console.log(shownImg1.clickCount);
 }
-imgEl2.addEventListener('click', imgTwo, false);
+imageElement2.addEventListener('click', imgTwo, false);
 
 function imgTwo() {
-  showenImg2.clickCount++;
-  console.log(showenImg2.clickCount);
+  shownImg2.clickCount++;
+  console.log(shownImg2.clickCount);
 }
-imgEl3.addEventListener('click', imgThree, false);
+imageElement3.addEventListener('click', imgThree, false);
 
 function imgThree() {
-  showenImg3.clickCount++;
-  console.log(showenImg3.clickCount);
+  shownImg3.clickCount++;
+  console.log(shownImg3.clickCount);
 }
 
 //listener for when an image is selected
@@ -121,17 +123,23 @@ choices.addEventListener('click', function clickListener() {
     cycleCount++;
 
   } else {
-    //build the chart data
+    //build the clicks chart data
     for (var j = 0; j < imageArray.length; j++) {
-      chartData[j] = imageArray[j].clickCount;
+      chartClicksData[j] = imageArray[j].clickCount;
     }
+
+    //build times shown chart data
+    for (var k = 0; k < imageArray.length; k++) {
+      chartShownData[k] = imageArray[k].timeShown;
+    }
+
     localStorage.setItem('storedData', JSON.stringify(imageArray));
-    console.log(chartData);
+    console.log(chartClicksData);
 
     buildChart();
-    imgEl1.removeEventListener('click', imgOne);
-    imgEl2.removeEventListener('click', imgTwo);
-    imgEl3.removeEventListener('click', imgThree);
+    imageElement1.removeEventListener('click', imgOne);
+    imageElement2.removeEventListener('click', imgTwo);
+    imageElement3.removeEventListener('click', imgThree);
     choices.removeEventListener('click', clickListener);
   }
 
@@ -181,6 +189,7 @@ var buildChart = function() {
   }
 
   var chartColors = ['red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple'];
+  var chartAltColors = ['blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow'];
 
   var chartOptions = {
     responsive: true,
@@ -199,8 +208,13 @@ var buildChart = function() {
       labels: chartLabels,
       datasets: [{
         label: '# of votes for each color',
-        data: chartData,
+        data: chartClicksData,
         backgroundColor: chartColors
+      },
+      {
+        label: '# of times shown',
+        data: chartShownData,
+        backgroundColor: chartAltColors
       }]
     },
     options: chartOptions
