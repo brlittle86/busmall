@@ -75,7 +75,7 @@ var rendImg = function() {
   showenImg2 = imageArray[selectionNumbers[1]];
   showenImg3 = imageArray[selectionNumbers[2]];
 
-  // Add back in the timeShown property.
+  //increment number of times shown on page
   imageArray[selectionNumbers[0]].timeShown++;
   imageArray[selectionNumbers[1]].timeShown++;
   imageArray[selectionNumbers[2]].timeShown++;
