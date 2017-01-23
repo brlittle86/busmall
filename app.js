@@ -192,20 +192,20 @@ var buildChart = function() {
     responsive: true,
     legend: {
       labels:{
-        fontColor: "#000000"
+        fontColor: '#000000'
       }
     },
     scales: {
       yAxes: [{
         ticks: {
-          fontColor: "#000000",
+          fontColor: '#000000',
           stepSize: 1,
           beginAtZero:true
         }
       }],
       xAxes: [{
         ticks: {
-          fontColor: "#000000",
+          fontColor: '#000000',
           stepSize: 1,
           beginAtZero:true
         }
