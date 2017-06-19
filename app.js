@@ -115,7 +115,7 @@ choices.addEventListener('click', function clickListener() {
 
   if (cycleCount < requiredNumberOfClicks) {
     for (var i = 0; i < imageArray.length; i++) {
-      if (imageArray[i].imgName == this.imgName) {
+      if (imageArray[i].imgName === this.imgName) {
         imageArray[i].clickCount++;
       }
     }
