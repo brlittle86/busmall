@@ -5,7 +5,7 @@ var num1 = 0;
 var num2 = 0;
 var num3 = 0;
 var imgEl1, imgEl2, imgEl3;
-var showenImg1, showenImg2, showenImg3;
+var shownImg1, shownImg2, shownImg3;
 var selectEl = document.getElementById('setting-img');
 var chartData = [];
 
@@ -94,9 +94,9 @@ createRendItem();
 var rendImg = function (){
 
   imgSrc();
-  showenImg1 = imageArray[selectionNumbers[0]];
-  showenImg2 = imageArray[selectionNumbers[1]];
-  showenImg3 = imageArray[selectionNumbers[2]];
+  shownImg1 = imageArray[selectionNumbers[0]];
+  shownImg2 = imageArray[selectionNumbers[1]];
+  shownImg3 = imageArray[selectionNumbers[2]];
 
   imgEl1.setAttribute('src', imageArray[selectionNumbers[0]].filePath);
   imgEl2.setAttribute('src', imageArray[selectionNumbers[1]].filePath);
@@ -109,18 +109,18 @@ rendImg();
 //event listeners for each of the three images on the page
 imgEl1.addEventListener('click',imgOne, false);
 function imgOne(){
-  showenImg1.clickCount++;
-  console.log(showenImg1.clickCount);
+  shownImg1.clickCount++;
+  console.log(shownImg1.clickCount);
 }
 imgEl2.addEventListener('click',imgTwo, false);
 function imgTwo(){
-  showenImg2.clickCount++;
-  console.log(showenImg2.clickCount);
+  shownImg2.clickCount++;
+  console.log(shownImg2.clickCount);
 }
 imgEl3.addEventListener('click',imgThree, false);
 function imgThree(){
-  showenImg3.clickCount++;
-  console.log(showenImg3.clickCount);
+  shownImg3.clickCount++;
+  console.log(shownImg3.clickCount);
 }
 
 //listener for when an image is selected
