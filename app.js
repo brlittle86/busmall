@@ -129,7 +129,7 @@ choices.addEventListener('click', function clickListener() {
 
   if (cycleCount < 5) {
     for (var i = 0; i < imageArray.length; i++) {
-      if (imageArray[i].imgName == this.imgName) {
+      if (imageArray[i].imgName === this.imgName) {
         imageArray[i].clickCount++;
       }
     }
@@ -168,14 +168,14 @@ var buildChart = function() {
   var chartColors = ['red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple', 'red', 'yellow', 'blue', 'green', 'purple'];
 
   var chartOptions = {
-        responsive: true,
-        scales: {
-        yAxes: [{
-          ticks: {
-            beginAtZero: true
-          }
-        }]
-      }
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
   };
 
   var imageResultsChart = new Chart(context, {
@@ -189,5 +189,5 @@ var buildChart = function() {
       }]
     },
     options: chartOptions
-  })
+  });
 };
